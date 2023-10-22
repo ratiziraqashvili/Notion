@@ -6,6 +6,7 @@ import { ElementRef, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 
 import { cn } from "@/lib/utils";
+import { UserItem } from "./user-item";
 
 export const Navigation = () => {
   const pathname = usePathname();
@@ -52,7 +53,10 @@ export const Navigation = () => {
     if (sidebarRef.current && navbarRef.current) {
       sidebarRef.current.style.width = `${newWidth}px`;
       navbarRef.current.style.setProperty("left", `${newWidth}px`);
-      navbarRef.current.style.setProperty("width", `calc(100% - ${newWidth}px)`);
+      navbarRef.current.style.setProperty(
+        "width",
+        `calc(100% - ${newWidth}px)`
+      );
     }
   };
 
@@ -72,10 +76,7 @@ export const Navigation = () => {
         "width",
         isMobile ? "0" : "calc(100% - 240px)"
       );
-      navbarRef.current.style.setProperty(
-        "left",
-        isMobile ? "100%" : "240px"
-      );
+      navbarRef.current.style.setProperty("left", isMobile ? "100%" : "240px");
       setTimeout(() => setIsResetting(false), 300);
     }
   };
@@ -90,7 +91,7 @@ export const Navigation = () => {
       navbarRef.current.style.setProperty("left", "0");
       setTimeout(() => setIsResetting(false), 300);
     }
-  }
+  };
 
   return (
     <>
@@ -113,7 +114,7 @@ export const Navigation = () => {
           <ChevronsLeft className="h-6 w-6" />
         </div>
         <div>
-          <p>Action items</p>
+          <UserItem />
         </div>
         <div className="mt-4">
           <p>Documents</p>
@@ -133,9 +134,15 @@ export const Navigation = () => {
         )}
       >
         <nav className="bg-transparent px-3 py-2 w-full">
-          {isCollapsed && <MenuIcon onClick={resetWidth} role="button" className="h-6 w-6 text-muted-foreground" />}
+          {isCollapsed && (
+            <MenuIcon
+              onClick={resetWidth}
+              role="button"
+              className="h-6 w-6 text-muted-foreground"
+            />
+          )}
         </nav>
       </div>
     </>
-  )
-}
+  );
+};
