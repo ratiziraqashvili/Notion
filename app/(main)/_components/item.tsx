@@ -100,7 +100,7 @@ export const Item = ({
     <div
       onClick={onClick}
       role="button"
-      style={{ paddingLeft: level ? `${level * 12 + 12}px` : "12px" }}
+      style={{ paddingLeft: level ? `${(level * 12) + 12}px` : "12px" }}
       className={cn(
         "group min-h-[27px] text-sm py-1 pr-3 w-full hover:bg-primary/5 flex items-center text-muted-foreground font-medium",
         active && "bg-primary/5 text-primary"
@@ -167,8 +167,8 @@ export const Item = ({
 Item.Skeleton = function ItemSkeleton({ level }: { level?: number }) {
   return (
     <div
-      style={{ paddingLeft: level ? `${level * 12 + 25}px` : "12px" }}
-      className="flex gap-x-2 py-[30px]"
+      style={{ paddingLeft: level ? `${(level * 12) + 25}px` : "12px" }}
+      className="flex gap-x-2 py-[10px]"
     >
       <Skeleton className="h-4 w-4" />
       <Skeleton className="h-4 w-[30%]" />
