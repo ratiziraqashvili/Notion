@@ -57,15 +57,15 @@ export const Item = ({
 
   const onArchive = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.stopPropagation();
-    if(!id) return;
-    const promise = archive({ id })
+    if (!id) return;
+    const promise = archive({ id }).then(() => router.push("/documents"));
 
     toast.promise(promise, {
       loading: "Moving to trash...",
       success: "Note moved to trash!",
       error: "Failed to archive note.",
-    })
-  }
+    });
+  };
 
   const handleExpand = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -83,7 +83,7 @@ export const Item = ({
           onExpand?.();
         }
 
-        // router.push(`/documents/${documentId}`);
+        router.push(`/documents/${documentId}`);
       }
     );
 
@@ -100,7 +100,7 @@ export const Item = ({
     <div
       onClick={onClick}
       role="button"
-      style={{ paddingLeft: level ? `${(level * 12) + 12}px` : "12px" }}
+      style={{ paddingLeft: level ? `${level * 12 + 12}px` : "12px" }}
       className={cn(
         "group min-h-[27px] text-sm py-1 pr-3 w-full hover:bg-primary/5 flex items-center text-muted-foreground font-medium",
         active && "bg-primary/5 text-primary"
@@ -148,7 +148,9 @@ export const Item = ({
                 Delete
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <div className="text-xs text-muted-foreground p-2">Last edited by: {user?.fullName}</div>
+              <div className="text-xs text-muted-foreground p-2">
+                Last edited by: {user?.fullName}
+              </div>
             </DropdownMenuContent>
           </DropdownMenu>
           <div
@@ -167,7 +169,7 @@ export const Item = ({
 Item.Skeleton = function ItemSkeleton({ level }: { level?: number }) {
   return (
     <div
-      style={{ paddingLeft: level ? `${(level * 12) + 25}px` : "12px" }}
+      style={{ paddingLeft: level ? `${level * 12 + 25}px` : "12px" }}
       className="flex gap-x-2 py-[10px]"
     >
       <Skeleton className="h-4 w-4" />
